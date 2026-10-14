@@ -15,7 +15,7 @@ The candidate kit provides `sample_seed.py` and sample documents for local testi
 
 ## Verification
 
-Manually checked against MongoDB Atlas with the kit's sample data: health check; employee creation/listing; punch-in and punch-out; attendance listing; all four analytics endpoints; and an attendance correction whose reason and reviewer appeared in the audit history. All five explain endpoints returned 200. `IXSCAN` was observed for department summary and department trend. The remaining explain responses still need review for `COLLSCAN` before claiming every query plan meets that check.
+Manually checked against MongoDB Atlas with the kit's sample data: health check; employee creation/listing; punch-in and punch-out; attendance listing; all four analytics endpoints; and an attendance correction whose reason and reviewer appeared in the audit history. All five explain endpoints returned 200. Each explain response showed `IXSCAN`; `COLLSCAN` was not found in any of the five responses with the sample data.
 
 GET /health
 ![GET /health](https://imgh.in/host/kp1tfo)
@@ -27,7 +27,6 @@ department trend
 ![Department trend](https://imgh.in/host/s44a1m)
 
 
-However, I have used Python 3.10 but the assignment requires Python 3.11 or newer so I suppose it can be negligible.
-
+Explain checks used only the kit's nine sample documents; query plans and performance at the assignment's larger target scale (about 100,000 rows) have not been verified.
 
 See [REVIEW.md](REVIEW.md) for the starter-code review and [DECISIONS.md](DECISIONS.md) for design decisions.
