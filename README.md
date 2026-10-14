@@ -1,16 +1,33 @@
-# Employee Attendance API
+# Employee Attendance & Analytics API
 
-Python 3.11+, FastAPI, and MongoDB 6.0+ implementation of the HROne attendance assignment. The app reads `MONGO_URI` and `MONGO_DB` from the environment and creates its indexes at startup.
+A FastAPI and MongoDB implementation of the HROne Software Engineer Trainee assignment. It provides employee and attendance operations, business-rule calculations, attendance corrections with audit history, four analytics endpoints, and query explain output.
 
-## Run
+## Run locally
 
-Install the packages with `python -m pip install -r requirements.txt`, set `MONGO_URI` and `MONGO_DB`, then run `uvicorn app.main:app --port 8000` from this directory. `GET /health` returns 200 when MongoDB responds and 503 otherwise.
+Requires Python 3.11+ and MongoDB 6.0+ (MongoDB Atlas works).
 
-The source kit's sample data is not included in this repository. To try the analytics locally, load the provided sample documents into the configured database first. No `.env`, credentials, data dump, virtual environment, or Dockerfile belongs in the submission.
+1. Install dependencies: `python -m pip install -r requirements.txt`.
+2. Create a local `.env` file with `MONGO_URI` and `MONGO_DB`. Never commit this file or share its credentials.
+3. Start the API from this folder: `uvicorn app.main:app --port 8000`.
+4. Open `http://127.0.0.1:8000/docs` to explore the API. `GET /health` checks the MongoDB connection.
 
-## Scope
+The candidate kit provides `sample_seed.py` and sample documents for local testing. The seed script clears the `employees` and `attendance_logs` collections in the selected database before loading the sample records; use it only with a development database. The sample files are intentionally not included in this repository.
 
-The API implements employee creation/listing, punch-in/out, attendance listing and regularization, four analytics endpoints, and query explain output. See `REVIEW.md` for starter defects and `DECISIONS.md` for the design choices. Review the MongoDB aggregation pipelines in `app/main.py` before the live walkthrough; they are the core of the analytics.
+## Verification
 
+Manually checked against MongoDB Atlas with the kit's sample data: health check; employee creation/listing; punch-in and punch-out; attendance listing; all four analytics endpoints; and an attendance correction whose reason and reviewer appeared in the audit history. All five explain endpoints returned 200. `IXSCAN` was observed for department summary and department trend. The remaining explain responses still need review for `COLLSCAN` before claiming every query plan meets that check.
 
+GET /health
 ![GET /health](https://imgh.in/host/kp1tfo)
+
+department summary
+![Department summary](https://imgh.in/host/1yxqdw)
+
+department trend
+![Department trend](https://imgh.in/host/s44a1m)
+
+
+However, I have used Python 3.10 but the assignment requires Python 3.11 or newer so I suppose it can be negligible.
+
+
+See [REVIEW.md](REVIEW.md) for the starter-code review and [DECISIONS.md](DECISIONS.md) for design decisions.
