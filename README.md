@@ -13,4 +13,4 @@ The source kit's sample data is not included in this repository. To try the anal
 The API implements employee creation/listing, punch-in/out, attendance listing and regularization, four analytics endpoints, and query explain output. See `REVIEW.md` for starter defects and `DECISIONS.md` for the design choices. Review the MongoDB aggregation pipelines in `app/main.py` before the live walkthrough; they are the core of the analytics.
 
 
-![GET /health](https://imgh.in/host/4h255l)
+![GET /health](https://imgh.in/host/kp1tfo)
